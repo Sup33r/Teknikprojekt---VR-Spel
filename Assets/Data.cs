@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class Data : MonoBehaviour
 {
-    // Start is called before the first frame update
     public float playAreaSize = 0;
     public bool endless = false;
-    void Start()
-    {
-        
-    }
+    public static Data Instance;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 }
