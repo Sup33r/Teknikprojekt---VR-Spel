@@ -9,7 +9,7 @@ public class MenuHandler : MonoBehaviour
     public void onEndlessButton()
     {
         dataGameObject.GetComponent<Data>().playAreaSize = GameObject.Find("Settings").GetComponent<SettingsHandler>().playAreaSize;
-        dataGameObject.GetComponent<Data>().endless = true;
+        dataGameObject.GetComponent<Data>().gameMode = 0;
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
     }
 }

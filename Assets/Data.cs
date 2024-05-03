@@ -5,7 +5,7 @@ using UnityEngine;
 public class Data : MonoBehaviour
 {
     public float playAreaSize = 0;
-    public bool endless = false;
+    public int gameMode = 0; // 0 = endless, 1 = tidsspel, 2 = survival
     public static Data Instance;
 
     private void Awake()
