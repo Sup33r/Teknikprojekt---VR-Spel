@@ -51,6 +51,7 @@ public class SpawnSpheres : MonoBehaviour
         // Sätter värden på klotet
         sphere.transform.position = randomPosition;
         sphere.GetComponent<Rigidbody>().drag = Random.Range(2, 7);
+        sphere.GetComponent<Rigidbody>().useGravity = true;
         float scale = Random.Range(0.3f, 0.9f);
         sphere.transform.localScale = new Vector3(scale,scale,scale);
         sphere.GetComponent<Renderer>().material.color = Color.HSVToRGB(Random.Range(0.05f, 0.1f), 1, 1);

@@ -6,23 +6,27 @@ public class GameHandler : MonoBehaviour
 {
     // Start is called before the first frame update
     private Data data;
-    public int score = 0;
+    public float score = 0;
     public int health = 0;
     public float time = 0;
     void Start()
     {
-        if (Data.Instance.gameMode == 0)
+        switch (Data.Instance.gameMode)
         {
-            StartEndlessGame();
+            case 0:
+                StartEndlessGame();
+                break;
+            case 1:
+                StartTimedGame();
+                break;
+            case 2:
+                StartSurvivalGame();
+                break;
+            default:
+                Debug.Log("Invalid game mode");
+                break;
         }
-        else if (Data.Instance.gameMode == 1)
-        {
-            StartTimedGame();
-        }
-        else if (Data.Instance.gameMode == 2)
-        {
-            StartSurvivalGame();
-        }
+        InvokeRepeating("AddScore", 1.0f, 1.0f);
         //Call a function that initializes the game
         //Keep track of time, score, and other game state
         
@@ -32,7 +36,29 @@ public class GameHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Data.Instance.gameMode == 0)
+        {
+            time += Time.deltaTime;
+            if(health <= 0)
+            {
+                GameOver();
+            }
+        } else if (Data.Instance.gameMode == 1)
+        {
+            time -= Time.deltaTime;
+            if (time <= 0)
+            {
+                GameOver();
+            }
+            
+        } else if (Data.Instance.gameMode == 2)
+        {
+            time += Time.deltaTime;
+            if(health <= 0)
+            {
+                GameOver();
+            }
+        }
     }
     
     public void GameOver()
@@ -58,16 +84,9 @@ public class GameHandler : MonoBehaviour
     {
         time = 60f; // Sätt tiden till värde, gör så den tickar ner.
     }
-    
-    public void AddScore(int score)
+
+    public void AddScore()
     {
-        //Lägg till score
-        this.score += score;
-    }
-    
-    public void RemoveScore(int score)
-    {
-        //Ta bort score
-        this.score -= score;
+        this.score++;
     }
 }
