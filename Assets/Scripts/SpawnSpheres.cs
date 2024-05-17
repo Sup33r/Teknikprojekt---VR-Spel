@@ -4,29 +4,26 @@ using UnityEngine;
 
 public class SpawnSpheres : MonoBehaviour
 {
-    // Start is called before the first frame update
-    
-    // Referensen till prefabben
+    // Referens till prefabben som ska spawna
     public GameObject spherePrefab;
 
     // Referensen till positionerna där punkterna ska kunna spawna
     public Vector3 spawnPosition1;
     public Vector3 spawnPosition2;
+    
+    // Lista för att hålla koll på osynliga klot
     private List<GameObject> invisibleSpheres = new List<GameObject>();
     void Start()
     {
         float planeSize = Data.Instance.playAreaSize;
         spawnPosition1 = new Vector3(-planeSize * 5, 1.4f, -planeSize * 5);
         spawnPosition2 = new Vector3(planeSize * 5, 5, planeSize * 5);
-        Debug.Log("Spawnpos1 "+spawnPosition1);
-        Debug.Log("spawnpos2 "+spawnPosition2);
-        // Sätter en timer som kör spawnSphere varje 0.5 sekund
-        InvokeRepeating("spawnSphere", 0, 0.5f);
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
+        
+        // Loopar igenom alla osynliga klot och gör dem synliga
         foreach (GameObject sphere in invisibleSpheres)
         {
             Color color = sphere.GetComponent<Renderer>().material.color;
@@ -42,13 +39,13 @@ public class SpawnSpheres : MonoBehaviour
     // Metod för att spawna ett klot
     public void spawnSphere()
     {
-        // Skapa en kopia av prefabben
+        // Skapar en kopia av prefabben
         GameObject sphere = Instantiate(spherePrefab);
 
         // Randomisera en position mellan spawnPosition1 och spawnPosition2
         Vector3 randomPosition = new Vector3(Random.Range(spawnPosition1.x, spawnPosition2.x), Random.Range(spawnPosition1.y, spawnPosition2.y), Random.Range(spawnPosition1.z, spawnPosition2.z));
 
-        // Sätter värden på klotet
+        // Sätter värden på klotet, och lägger in den i listan för osynliga klot
         sphere.transform.position = randomPosition;
         sphere.GetComponent<Rigidbody>().drag = Random.Range(2, 7);
         sphere.GetComponent<Rigidbody>().useGravity = true;
@@ -59,5 +56,24 @@ public class SpawnSpheres : MonoBehaviour
         color.a = 0;
         sphere.GetComponent<Renderer>().material.color = color;
         invisibleSpheres.Add(sphere);
+    }
+    
+    // Börjar spawna klot
+    public void StartSpawning(float spawnRate)
+    {
+        InvokeRepeating("spawnSphere", 0, spawnRate);
+    }
+    
+    // Avslutar spawning av klot
+    public void StopSpawning()
+    {
+        CancelInvoke("spawnSphere");
+    }
+    
+    // Ändrar hastigheten på spawntiden
+    public void ChangeSpawnRate(float spawnRate)
+    {
+        CancelInvoke("spawnSphere");
+        InvokeRepeating("spawnSphere", 0, spawnRate);
     }
 }

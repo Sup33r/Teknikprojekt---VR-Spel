@@ -5,24 +5,20 @@ using UnityEngine;
 
 public class CountdownManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // Nedräkningstexten
     private TextMeshPro countdownText;
     void Start()
     {
         countdownText = GetComponent<TextMeshPro>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
+    // Startar en nedräkning i antal sekunder
     public void StartCountdown(int seconds)
     {
         StartCoroutine(Countdown(seconds));
     }
     
+    // Nedräkningen i sig
     private IEnumerator Countdown(int seconds)
     {
         for (int i = seconds; i > 0; i--)

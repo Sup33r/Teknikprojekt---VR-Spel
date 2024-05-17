@@ -5,18 +5,15 @@ using UnityEngine.InputSystem;
 
 public class AnimateHandOnInput : MonoBehaviour
 {
+    
+    // Värden för att kunna ansluta till inputsystemet
     public InputActionProperty pinchAnimationAction;
     public InputActionProperty gripAnimationAction;
     public Animator handAnimator;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
+        // Aktiverar inputsystemet
         pinchAnimationAction.action.Enable();
         gripAnimationAction.action.Enable();
         handAnimator.SetFloat("Trigger", pinchAnimationAction.action.ReadValue<float>());

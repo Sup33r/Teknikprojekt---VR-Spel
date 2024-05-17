@@ -6,12 +6,15 @@ using UnityEngine;
 
 public class SphereHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
     public GameObject ground;
     public GameObject head;
+    
+    
     private GameHandler gameHandler;
     private float previousY;
     private bool IsIncreasing = false;
+    
+    
     void Start()
     {
         ground = GameObject.Find("Ground");
@@ -20,7 +23,6 @@ public class SphereHandler : MonoBehaviour
         previousY = transform.position.y;
     }
 
-    // Update is called once per frame
     void Update()
     {
         float currentY = transform.position.y;
@@ -40,8 +42,7 @@ public class SphereHandler : MonoBehaviour
     {
         if (collision.gameObject == ground)
         {
-            Debug.Log("Sphere collided");
-            //Partiklar
+            //TODO: PARTIKLAR
             if (Data.Instance.gameMode == 2)
             {
                 gameHandler.missed += 1;
@@ -55,7 +56,7 @@ public class SphereHandler : MonoBehaviour
             Destroy(gameObject);
         } else if (collision.gameObject == head)
         {
-            //Partiklar
+            //TODO: PARTIKLAR
             if (Data.Instance.gameMode == 2)
             {
                 gameHandler.health -= 1;
