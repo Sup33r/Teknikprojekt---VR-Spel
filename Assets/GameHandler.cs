@@ -9,6 +9,7 @@ public class GameHandler : MonoBehaviour
     public float score = 0;
     public int health = 0;
     public float time = 0;
+    public int missed = 0;
     void Start()
     {
         switch (Data.Instance.gameMode)
@@ -63,6 +64,7 @@ public class GameHandler : MonoBehaviour
     
     public void GameOver()
     {
+        CancelInvoke("AddScore");
         //Call a function that ends the game
         //Display the final score and other game stats
     }
@@ -71,12 +73,14 @@ public class GameHandler : MonoBehaviour
     public void StartSurvivalGame()
     {
         time = 0; //Sätt tiden till noll, gör så den tickar upp.
+        health = 3;
     }
     
     //Endless är att man har health, och när man missar att ta ett klot så går den ner. När man har 0 health så är spelet slut.
     public void StartEndlessGame()
     {
         time = 0; // Sätt tiden till noll, gör så den tickar upp.
+        health = 3;
     }
     
     //Timed är att man ska försöka få så hög score på tiden som man får. När tiden är slut summeras ens score.

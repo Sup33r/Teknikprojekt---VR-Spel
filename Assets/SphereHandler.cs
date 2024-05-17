@@ -8,12 +8,14 @@ public class SphereHandler : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject ground;
+    public GameObject head;
     private GameHandler gameHandler;
     private float previousY;
     private bool IsIncreasing = false;
     void Start()
     {
         ground = GameObject.Find("Ground");
+        head = GameObject.Find("Head");
         gameHandler = GameObject.Find("GameHandler").GetComponent<GameHandler>();
         previousY = transform.position.y;
     }
@@ -39,10 +41,26 @@ public class SphereHandler : MonoBehaviour
         if (collision.gameObject == ground)
         {
             Debug.Log("Sphere collided");
-            gameHandler.score -= 1;
-            gameHandler.health -= 1;
             //Partiklar
+            if (Data.Instance.gameMode == 2)
+            {
+                gameHandler.missed += 1;
+            }
+            else
+            {
+                gameHandler.score -= 1;
+                gameHandler.health -= 1;
+                gameHandler.missed += 1;
+            }
             Destroy(gameObject);
+        } else if (collision.gameObject == head)
+        {
+            //Partiklar
+            if (Data.Instance.gameMode == 2)
+            {
+                gameHandler.health -= 1;
+                Destroy(gameObject);
+            }
         }
     }
     
