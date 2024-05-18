@@ -19,22 +19,6 @@ public class SpawnSpheres : MonoBehaviour
         spawnPosition1 = new Vector3(-planeSize * 5, 1.4f, -planeSize * 5);
         spawnPosition2 = new Vector3(planeSize * 5, 5, planeSize * 5);
     }
-    
-    void Update()
-    {
-        
-        // Loopar igenom alla osynliga klot och gör dem synliga
-        foreach (GameObject sphere in invisibleSpheres)
-        {
-            Color color = sphere.GetComponent<Renderer>().material.color;
-            color.a += 0.05f;
-            sphere.GetComponent<Renderer>().material.color = color;
-            if (color.a >= 1)
-            {
-                invisibleSpheres.Remove(sphere);
-            }
-        }
-    }
 
     // Metod för att spawna ett klot
     public void spawnSphere()
@@ -53,7 +37,7 @@ public class SpawnSpheres : MonoBehaviour
         sphere.transform.localScale = new Vector3(scale,scale,scale);
         sphere.GetComponent<Renderer>().material.color = Color.HSVToRGB(Random.Range(0.05f, 0.1f), 1, 1);
         Color color = sphere.GetComponent<Renderer>().material.color;
-        color.a = 0;
+        color.a = Random.Range(0.1f, 0.5f);
         sphere.GetComponent<Renderer>().material.color = color;
         invisibleSpheres.Add(sphere);
     }

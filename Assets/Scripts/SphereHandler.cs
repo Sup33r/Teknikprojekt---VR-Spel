@@ -46,21 +46,32 @@ public class SphereHandler : MonoBehaviour
             if (Data.Instance.gameMode == 2)
             {
                 gameHandler.missed += 1;
+                Destroy(gameObject);
             }
             else
             {
                 gameHandler.score -= 1;
                 gameHandler.health -= 1;
                 gameHandler.missed += 1;
+                AudioSource audio = gameObject.AddComponent<AudioSource>();
+                audio.clip = Resources.Load<AudioClip>("Sounds/hit_sound");
+                audio.Play();
+                GetComponent<Renderer>().enabled = false;
+                GetComponent<Collider>().enabled = false;
+                Destroy(gameObject, audio.clip.length);
             }
-            Destroy(gameObject);
         } else if (collision.gameObject == head)
         {
             //TODO: PARTIKLAR
             if (Data.Instance.gameMode == 2)
             {
                 gameHandler.health -= 1;
-                Destroy(gameObject);
+                AudioSource audio = gameObject.AddComponent<AudioSource>();
+                audio.clip = Resources.Load<AudioClip>("Sounds/hit_sound");
+                audio.Play();
+                GetComponent<Renderer>().enabled = false;
+                GetComponent<Collider>().enabled = false;
+                Destroy(gameObject, audio.clip.length);
             }
         }
     }

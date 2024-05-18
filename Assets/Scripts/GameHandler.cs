@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
     private Data data;
     public float score = 0;
     public int health = 0;
@@ -82,7 +81,7 @@ public class GameHandler : MonoBehaviour
     public void StartEndlessGame()
     {
         time = 0; // Sätt tiden till noll, gör så den tickar upp.
-        health = 3;
+        health = 99;
         gameObject.GetComponent<SpawnSpheres>().StartSpawning(0.5f);
     }
     
