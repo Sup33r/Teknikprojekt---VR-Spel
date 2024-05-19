@@ -74,7 +74,7 @@ public class GameHandler : MonoBehaviour
     {
         time = 0; //Sätt tiden till noll, gör så den tickar upp.
         health = 3;
-        gameObject.GetComponent<SpawnSpheres>().StartSpawning(0.5f);
+        Invoke("StartSpawning",StartCountdown());
     }
     
     //Endless är att man har health, och när man missar att ta ett klot så går den ner. När man har 0 health så är spelet slut.
@@ -82,18 +82,28 @@ public class GameHandler : MonoBehaviour
     {
         time = 0; // Sätt tiden till noll, gör så den tickar upp.
         health = 99;
-        gameObject.GetComponent<SpawnSpheres>().StartSpawning(0.5f);
+        Invoke("StartSpawning",StartCountdown());
     }
     
     //Timed är att man ska försöka få så hög score på tiden som man får. När tiden är slut summeras ens score.
     public void StartTimedGame()
     {
         time = 60f; // Sätt tiden till värde, gör så den tickar ner.
-        gameObject.GetComponent<SpawnSpheres>().StartSpawning(0.5f);
+        Invoke("StartSpawning",StartCountdown());
     }
 
     public void AddScore()
     {
         this.score++;
+    }
+
+    private float StartCountdown()
+    {
+        return GameObject.Find("Countdown").GetComponent<CountdownManager>().StartCountdown(3);
+    }
+
+    private void StartSpawning()
+    {
+        gameObject.GetComponent<SpawnSpheres>().StartSpawning(0.5f);
     }
 }
