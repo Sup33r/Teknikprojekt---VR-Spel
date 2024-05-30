@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,4 +13,10 @@ public class SettingsHandler : MonoBehaviour
         playAreaSize = size/3;
         ground.transform.localScale = new Vector3(playAreaSize, 0f, playAreaSize);
     }
+
+    public void Update()
+    {
+        transform.position = new Vector3(transform.position.x, Camera.main.transform.position.y, transform.position.z);
+    }
+
 }

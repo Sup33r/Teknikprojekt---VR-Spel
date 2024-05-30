@@ -21,10 +21,20 @@ public class InfoManager : MonoBehaviour
     {
         if(gameMode == 0 || gameMode == 2)
         {
-            infoText.text = "Antal liv: " + gameHandler.health + "\n\nPasserad tid: " + gameHandler.time + "s";        }
+            infoText.text = "Antal liv: " + gameHandler.health + "\n\nPasserad tid: " + gameHandler.time.ToString("F1") + "s" + "\n\nAckumulerade poäng: " + gameHandler.score;
+        }
         else if(gameMode == 1)
         {
-            infoText.text = "Kvarstående tid: " + gameHandler.time + "s";
+            if(gameHandler.time <= 0)
+            {
+                HideInfo();
+            }
+            infoText.text = "Kvarstående tid: " + gameHandler.time.ToString("F1") + "s" + "\n\nAckumulerade poäng: " + gameHandler.score;
         }
+    }
+    
+    private void HideInfo()
+    {
+        transform.parent.gameObject.GetComponent<Canvas>().enabled = false;
     }
 }

@@ -12,4 +12,9 @@ public class MenuHandler : MonoBehaviour
         dataGameObject.GetComponent<Data>().gameMode = 0;
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
     }
+    
+    public void Update()
+    {
+        transform.position = new Vector3(transform.position.x, Camera.main.transform.position.y, transform.position.z);
+    }
 }

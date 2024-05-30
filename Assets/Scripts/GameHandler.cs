@@ -5,12 +5,14 @@ using UnityEngine;
 public class GameHandler : MonoBehaviour
 {
     private Data data;
+    private ScoringManager scoringManager;
     public float score = 0;
     public int health = 0;
     public float time = 0;
     public int missed = 0;
     void Start()
     {
+        scoringManager = GameObject.Find("Scoring").GetComponent<ScoringManager>();
         switch (Data.Instance.gameMode)
         {
             case 0:
@@ -41,6 +43,7 @@ public class GameHandler : MonoBehaviour
             time += Time.deltaTime;
             if(health <= 0)
             {
+                scoringManager.DisplayScoring();
                 GameOver();
             }
         } else if (Data.Instance.gameMode == 1)
@@ -48,6 +51,7 @@ public class GameHandler : MonoBehaviour
             time -= Time.deltaTime;
             if (time <= 0)
             {
+                scoringManager.DisplayScoring();
                 GameOver();
             }
             
@@ -56,6 +60,7 @@ public class GameHandler : MonoBehaviour
             time += Time.deltaTime;
             if(health <= 0)
             {
+                scoringManager.DisplayScoring();
                 GameOver();
             }
         }

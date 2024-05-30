@@ -10,7 +10,7 @@ public class CountdownManager : MonoBehaviour
     // Ljuden som spelas vid nedräkning
     private AudioSource countdownAudio1;
     private AudioSource countdownAudio2;
-    void Start()
+    void Awake()
     {
         countdownAudio1 = gameObject.AddComponent<AudioSource>();
         countdownAudio1.clip = Resources.Load<AudioClip>("Sounds/countdown-1");

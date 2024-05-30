@@ -20,14 +20,25 @@ public class ScoringManager : MonoBehaviour
 
     public void DisplayScoring()
     {
+        ShowScoring();
         if(gameMode == 0 || gameMode == 2)
         {
-            infoText.text = "Spelets tid: " + gameHandler.time + "s\n\nAntal liv: " + gameHandler.health;
+            scoringText.text = "Spelets tid: " + gameHandler.time + "s\n\nAntal liv: " + gameHandler.health + "\n\nPoäng Ackumulerade: " + gameHandler.score;
             
         }
         else if(gameMode == 1)
         {
-            infoText.text = "Kvarstående tid: " + gameHandler.time + "s";
+            scoringText.text = "Poäng Ackumulerade: " + gameHandler.score;
         }
+    }
+    
+    private void HideScoring()
+    {
+        transform.parent.gameObject.GetComponent<Canvas>().enabled = false;
+    }
+    
+    private void ShowScoring()
+    {
+        transform.parent.gameObject.GetComponent<Canvas>().enabled = true;
     }
 }

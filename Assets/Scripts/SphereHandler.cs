@@ -34,6 +34,7 @@ public class SphereHandler : MonoBehaviour
         {
             IsIncreasing = false;
             gameHandler.score += ((int) Math.Round(previousY / 2));
+            Destroy(gameObject);
         }
         previousY = currentY;
     }
